@@ -3,13 +3,13 @@
 layout: recipe
 title: test
 image: test.jpg
-description: 
-duration: 
-difficulty: 
+description: test
+duration: test
+difficulty: test
 
 ingredients: 
-
+  - test
 directions: 
-
+  - test
 
 ---
