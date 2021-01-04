@@ -1,0 +1,52 @@
+---
+layout: index
+---
+
+<div id="top">
+    <h2>Browse Cookbook</h2>
+    <div class="list">
+        {% for recipe in site.recipes %}
+            <a class="list-item" href="{{ recipe.url }}">
+                <img src="{{site.baseurl}}/images/{{ recipe.image }}" onerror="standby(this)"/>
+                <div class="list-item-text">
+                    <div class="list-item-title">
+                        {{recipe.title}}
+                    </div>
+                    <div class="list-item-summary">
+                        {{recipe.description | truncate: 60}}
+                    </div>
+                    <div class="list-item-tags">
+                        <div class="list-item-tag duration" style="margin-right: 18px;">
+                            <i class="far fa-clock"></i>
+                            <span>{{ recipe.duration }}</span>
+                        </div>
+                        <div class="list-item-tag difficulty">
+                            <i class="fas fa-cog"></i>
+                            <span>{{ recipe.difficulty }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item-chevron">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+<div id="bottom">
+    <div class="bottom-icon">
+        <i class="fas fa-book-open"></i>
+    </div>
+    <div class="bottom-icon">
+        <i class="fas fa-search"></i>
+    </div>
+    <div class="bottom-icon">
+        <i class="fas fa-plus"></i>
+    </div>
+</div>
+
+<script>
+    function standby(img) {
+        img.src = 'https://webstockreview.net/images/icon-png-images-6.png'
+    }
+</script>

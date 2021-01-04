@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#top {
+    height: calc(100vh - 72px);
+    width: 100vw;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+}
+
+#bottom {
+    height: 72px;
+    width: 100vw;
+    box-shadow: 0 15px 35px hsla(0, 0%, 0%,.2);
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+img {
+    width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 6px hsla(0, 0%, 0%,.1);
+}
+
+h2 {
+    align-self: center;
+    margin-bottom: 4px;
+}
+
+.list-item-tags {
+    display: flex;
+    align-self: center;
+}
+
+.list-item-tag {
+    font-size: 14px;
+}
+
+#description {
+    margin-top: 18px;
+    padding: 12px 0px 12px 0px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgray;
+    color: gray;
+    font-weight: 400;
+}
+
+h3 {
+    margin-bottom: 8px;
+}
+
+#ingredients {
+    margin: 0;
+    list-style: none;
+    padding-left: 8px;
+}
+
+#instructions {
+    margin: 0px;
+    padding-left: 32px;
+}
+
+li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+button {
+    min-height: 48px;
+    height: 48px;
+    border: none;
+    font-weight: 500;
+    font-size: 18px;
+    box-shadow: 0 1px 3px hsla(0, 0%, 0%,.2);
+    background-color: lightskyblue;
+    margin-top: 24px;
+}
+
+li > span {
+    margin-left: 4px;
+}
