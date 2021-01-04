@@ -12,6 +12,7 @@ body {
 
 #top {
     height: calc(100vh - 72px);
+    max-height: calc(100% - 72px);
     width: 100vw;
     padding: 18px;
     overflow-y: auto;
