@@ -5,9 +5,6 @@ layout: edit
 <div id="top">
     <div id="content">
         <img src="https://webstockreview.net/images/icon-png-images-6.png" />
-        <input type="hidden" id="path">
-        <input type="hidden" id="image">
-
         <h3>Title</h3>
         <input type="text" id="title"/>
 
@@ -42,33 +39,8 @@ layout: edit
     </div>
 </div>
 
+
 <script>
-    function onLoad() {
-        var recipe = localStorage.getItem('recipe');
-
-        if (recipe === null) {
-            window.location.href = "/new.html";
-            return;
-        }
-
-        recipe = JSON.parse(recipe);
-
-        document.getElementById("title").value = recipe.title;
-        document.getElementById("image").value = recipe.image;
-        document.getElementById("description").value = recipe.description;
-        document.getElementById("path").value = recipe.path;
-        document.getElementById("duration").value = recipe.duration;
-        document.getElementById("difficulty").value = recipe.difficulty;
-
-        for (var i = 0; i < recipe.ingredients.length; i++) {
-            addListItem(recipe.ingredients[i], document.getElementById("ingredients"));
-        }
-
-        for (var i = 0; i < recipe.directions.length; i++) {
-            addListItem(recipe.directions[i], document.getElementById("instructions"));
-        }
-    }
-
     // <li><input type="text"/><i class="fas fa-trash"></i></li>
     function addListItem(content, parent) {
         var li = document.createElement("li");
@@ -102,13 +74,15 @@ layout: edit
     }
 
     function constructFile() {
+        var name = document.getElementById('title').value.toLowerCase().split(' ').join('_').replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue').replace('ß', 'ss');
+        
         var result = '---\n';
         result += '\n';
 
         // Basics
         result += 'layout: recipe\n';
         result += 'title: ' + document.getElementById('title').value + '\n';
-        result += 'image: ' + document.getElementById('image').value + '\n';
+        result += 'image: ' + name + '.jpg\n';
         result += 'description: ' + document.getElementById('description').value + '\n';
         result += 'duration: ' + document.getElementById('duration').value + '\n';
         result += 'difficulty: ' + document.getElementById('difficulty').value + '\n';
@@ -131,10 +105,8 @@ layout: edit
 
         result += '---\n';
 
-        var path = document.getElementById('path').value;
-
         return {
-            path: path,
+            path: '_recipes/' + name,
             content: result
         };
     }
@@ -155,7 +127,7 @@ layout: edit
             'gh-pages', // e.g. 'master'
             file.path, // e.g. 'blog/index.md'
             file.content, // e.g. 'Hello world, this is my new content'
-            'Edited recipe: ' + $('#title').value, // e.g. 'Created new index'
+            'Added new recipe: ' + $('#title').value, // e.g. 'Created new index'
             function (err, res, val) {
                 if (err) { // unauthorized
                     if(err.response.status === 401 && cb) { // token not valid, request new one
