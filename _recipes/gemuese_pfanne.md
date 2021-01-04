@@ -3,9 +3,9 @@
 layout: recipe
 title:  "Gemüse Pfanne"
 image: gemuese_pfanne.jpg
-description: Ein Hamburger nach dem Rezept aus Frankreich. Zudem kommt hier noch mehr gelaber. baljdsfjasdlfjsad laskd jfalsdjf sakjf.
+description: Rezept von meiner Großmutter
 duration: 30 min
-difficulty: Easy
+difficulty: Einfach
 
 ingredients:
 - 1 Zucchini
@@ -24,5 +24,3 @@ directions:
 - Bei mittlerer Hitze 10 Minuten kochen
 
 ---
-
-Rezept von meiner Großmutter

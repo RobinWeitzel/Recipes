@@ -5,7 +5,7 @@ title: Kohlrabi Pfanne
 image: kohlrabi pfanne.jpg
 tags: hauptgericht,schnell,simpel
 duration: 30 min
-difficulty: Easy
+difficulty: Leicht
 
 ingredients: 
 - 2 Kohlrabi

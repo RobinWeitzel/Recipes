@@ -3,9 +3,9 @@
 layout: recipe
 title: Gemüselasagne
 image: gemuese_lasagne.jpg
-tags: hauptgericht, backen
+description: Sehr schön cremig
 duration: 90 min
-difficulty: Medium
+difficulty: Mittel
 
 ingredients: 
 - 150g Zucchini
