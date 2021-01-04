@@ -3,7 +3,7 @@
 layout: recipe
 title: Kohlrabi Pfanne
 image: kohlrabi pfanne.jpg
-tags: hauptgericht,schnell,simpel
+description: Rezept von meiner Mutter
 duration: 30 min
 difficulty: Leicht
 
@@ -20,8 +20,5 @@ directions:
 - Anschließend Kohlrabi auf mittlerer Hitze ansetzen lassen
 - Vorm servieren Mehl darüberstreuen und verrühren, dann mit Milch anschwitzen
 
+
 ---
-
-Diese Rezept geht sehr schnell und einfach, gut für ein Abendessen geeignet.
-
-Rezept von meiner Mutter
