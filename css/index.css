@@ -3,13 +3,17 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     display: flex;
     flex-direction: column;
     margin: 0px;
     overflow: hidden;
+    height: 100%;
 }
-
 #top {
     height: calc(100vh - 72px);
     max-height: calc(100% - 72px);
