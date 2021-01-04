@@ -188,6 +188,7 @@ layout: edit
 
         writeFile(token, () => {
             getToken(t => {
+                localStorage.setItem("token", t);
                 writeFile(t);
             })
         });
