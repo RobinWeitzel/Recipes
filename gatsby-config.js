@@ -14,5 +14,13 @@ module.exports = {
       },
       __key: "images",
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "recipes",
+        path: "./src/recipes/",
+      },
+      __key: "images",
+    },
   ],
 };
