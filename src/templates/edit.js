@@ -7,17 +7,18 @@ import {
     faPlus,
     faTrash
 } from '@fortawesome/free-solid-svg-icons'
-import { Helmet } from "react-helmet"
 import netlifyIdentity from 'netlify-identity-widget';
 
-netlifyIdentity.init();
-
 export default function Edit({ data }) {
+    React.useEffect(() => {
+        netlifyIdentity.init();
+    });
+
     const [title, setTitle] = React.useState(data.allRecipesJson.edges[0].node.title || "");
     const [description, setDescription] = React.useState(data.allRecipesJson.edges[0].node.description || "");
     const [duration, setDuration] = React.useState(data.allRecipesJson.edges[0].node.duration || "");
     const [difficulty, setDifficulty] = React.useState(data.allRecipesJson.edges[0].node.difficulty || "");
-    const [ingredients, setIngredients] = React.useState(data.allRecipesJson.edges[0].node.ingredients ||  []);
+    const [ingredients, setIngredients] = React.useState(data.allRecipesJson.edges[0].node.ingredients || []);
     const [instructions, setInstructions] = React.useState(data.allRecipesJson.edges[0].node.instructions || []);
 
     const image = data.allRecipesJson.edges[0].node.image || "";
@@ -31,7 +32,7 @@ export default function Edit({ data }) {
                 body: JSON.stringify({
                     branch: "gh-pages",
                     message: "Edited recipe: " + title,
-                    content:  Buffer.from(JSON.stringify({
+                    content: Buffer.from(JSON.stringify({
                         title,
                         description,
                         duration,
@@ -58,17 +59,17 @@ export default function Edit({ data }) {
 
         const changeIngredient = e => {
             setIngredients(ingredients.map((item, j) => {
-                  if (j === i) {
+                if (j === i) {
                     return e.target.value;
-                  } else {
+                } else {
                     return item;
-                  }
-                })
+                }
+            })
             );
         }
 
         return (<li className={styles.li}>
-            <input className={styles.input} type="text" value={ingredient} onChange={changeIngredient}/>
+            <input className={styles.input} type="text" value={ingredient} onChange={changeIngredient} />
             <span className={styles.span} onClick={removeIngredient}>
                 <FontAwesomeIcon icon={faTrash} size="1x" />
             </span>
@@ -82,17 +83,17 @@ export default function Edit({ data }) {
 
         const changeInstruction = e => {
             setInstructions(instructions.map((item, j) => {
-                  if (j === i) {
+                if (j === i) {
                     return e.target.value;
-                  } else {
+                } else {
                     return item;
-                  }
-                })
+                }
+            })
             );
         }
 
         return (<li className={styles.li}>
-            <input className={styles.input} type="text" value={instruction} onChange={changeInstruction}/>
+            <input className={styles.input} type="text" value={instruction} onChange={changeInstruction} />
             <span className={styles.span} onClick={removeInstruction}>
                 <FontAwesomeIcon icon={faTrash} size="1x" />
             </span>
@@ -125,7 +126,7 @@ export default function Edit({ data }) {
                 <input className={styles.input} type="text" id={styles.duration} value={duration} onChange={applyinput(setDuration)} />
 
                 <h3 className={styles.h3}>Difficulty</h3>
-                <input className={styles.input} type="text" id={styles.difficulty} value={difficulty} onChange={applyinput(setDifficulty)}  />
+                <input className={styles.input} type="text" id={styles.difficulty} value={difficulty} onChange={applyinput(setDifficulty)} />
 
                 <h3 className={styles.h3}>Description</h3>
                 <textarea className={styles.textarea} type="text" id={styles.description} value={description} onChange={applyinput(setDescription)} ></textarea>

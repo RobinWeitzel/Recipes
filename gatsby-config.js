@@ -4,7 +4,6 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-sharp",
-    "gatsby-plugin-sitemap",
     "gatsby-transformer-sharp",
     `gatsby-plugin-react-helmet`,
     {
