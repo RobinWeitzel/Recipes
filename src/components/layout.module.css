@@ -1,0 +1,24 @@
+
+#top {
+    height: calc(100vh - 72px);
+    max-height: calc(100% - 72px);
+    width: 100vw;
+    padding: 18px;
+    overflow-y: auto;
+}
+
+#bottom {
+    height: 72px;
+    width: 100vw;
+    box-shadow: 0 15px 35px hsla(0, 0%, 0%,.2);
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottomicon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
