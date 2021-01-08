@@ -16,6 +16,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `edit`,
       value: '/edit' + slug,
     })
+
+    createNodeField({
+      node,
+      name: `path`,
+      value: '/src' + slug.slice(0, -1) + ".json",
+    })
   }
 }
 

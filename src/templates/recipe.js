@@ -30,7 +30,9 @@ export default function Recipe({ data }) {
     }
 
     const edit = () => {
-        window.location.href = recipe.fields.edit;
+        if(typeof window !== 'undefined' && window.document) {
+            window.location.href = recipe.fields.edit;
+        }
     }
 
     return (

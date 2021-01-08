@@ -7,32 +7,48 @@ import {
     faPlus,
     faTrash
 } from '@fortawesome/free-solid-svg-icons'
+import { Helmet } from "react-helmet"
 import netlifyIdentity from 'netlify-identity-widget';
 
 netlifyIdentity.init();
-netlifyIdentity.on('login', user => {
-    console.log(user);
-});
-
-netlifyIdentity.open();
 
 export default function Edit({ data }) {
-    const user = netlifyIdentity.currentUser();
-
-    console.log(user);
-
-    const [title, setTitle] = React.useState(data.allRecipesJson.edges[0].node.title);
-    const [description, setDescription] = React.useState(data.allRecipesJson.edges[0].node.description);
-    const [duration, setDuration] = React.useState(data.allRecipesJson.edges[0].node.duration);
-    const [difficulty, setDifficulty] = React.useState(data.allRecipesJson.edges[0].node.difficulty);
+    const [title, setTitle] = React.useState(data.allRecipesJson.edges[0].node.title || "");
+    const [description, setDescription] = React.useState(data.allRecipesJson.edges[0].node.description || "");
+    const [duration, setDuration] = React.useState(data.allRecipesJson.edges[0].node.duration || "");
+    const [difficulty, setDifficulty] = React.useState(data.allRecipesJson.edges[0].node.difficulty || "");
     const [ingredients, setIngredients] = React.useState(data.allRecipesJson.edges[0].node.ingredients ||  []);
     const [instructions, setInstructions] = React.useState(data.allRecipesJson.edges[0].node.instructions || []);
 
-    const image = data.allRecipesJson.edges[0].node.image;
-    const fields = data.allRecipesJson.edges[0].node.fields;
+    const image = data.allRecipesJson.edges[0].node.image || "";
+    const path = data.allRecipesJson.edges[0].node.fields.path;
 
     const save = () => {
+        netlifyIdentity.on('login', user => {
+            const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    branch: "gh-pages",
+                    message: "Edited recipe: " + title,
+                    content:  Buffer.from(JSON.stringify({
+                        title,
+                        description,
+                        duration,
+                        difficulty,
+                        ingredients,
+                        instructions,
+                        image
+                    })).toString('base64')
+                })
+            };
 
+            fetch('/.netlify/git/github/contents' + path, requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data));
+        });
+
+        netlifyIdentity.open();
     }
 
     const ingredientsList = ingredients.map((ingredient, i) => {
@@ -142,7 +158,7 @@ export const query = graphql`
                     ingredients
                     instructions
                     fields {
-                        slug
+                        path
                     }
                 }
             }
