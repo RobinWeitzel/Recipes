@@ -11,8 +11,6 @@ import {
 export default function Recipe({ data }) {
     const recipe = data.allRecipesJson.edges[0].node;
 
-    console.log(recipe)
-
     const ingredients = recipe.ingredients && recipe.ingredients.map(ingredient =>
         <li key={ingredient} className={styles.li}>
             <input type="checkbox" />

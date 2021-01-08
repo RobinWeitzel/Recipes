@@ -12,6 +12,12 @@ import netlifyIdentity from 'netlify-identity-widget';
 export default function Edit({ data }) {
     React.useEffect(() => {
         netlifyIdentity.init();
+
+        const user = netlifyIdentity.currentUser();
+
+        if(!user) {
+            netlifyIdentity.open();
+        }
     });
 
     const [title, setTitle] = React.useState(data.allRecipesJson.edges[0].node.title || "");
@@ -25,31 +31,27 @@ export default function Edit({ data }) {
     const path = data.allRecipesJson.edges[0].node.fields.path;
 
     const save = () => {
-        netlifyIdentity.on('login', user => {
-            const requestOptions = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    branch: "gh-pages",
-                    message: "Edited recipe: " + title,
-                    content: Buffer.from(JSON.stringify({
-                        title,
-                        description,
-                        duration,
-                        difficulty,
-                        ingredients,
-                        instructions,
-                        image
-                    })).toString('base64')
-                })
-            };
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                branch: "gh-pages",
+                message: "Edited recipe: " + title,
+                content: Buffer.from(JSON.stringify({
+                    title,
+                    description,
+                    duration,
+                    difficulty,
+                    ingredients,
+                    instructions,
+                    image
+                })).toString('base64')
+            })
+        };
 
-            fetch('/.netlify/git/github/contents' + path, requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data));
-        });
-
-        netlifyIdentity.open();
+        fetch('/.netlify/git/github/contents' + path, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data));        
     }
 
     const ingredientsList = ingredients.map((ingredient, i) => {
