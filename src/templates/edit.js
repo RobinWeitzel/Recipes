@@ -37,7 +37,7 @@ export default function Edit({ data }) {
         let user = netlifyIdentity.currentUser()
         let token = user.token.access_token
     
-        const url = "/.netlify/git/github/contents/" + mypath
+        const url = "/.netlify/git/github/contents" + mypath
         const bearer = 'Bearer ' + token
         return fetch(url, {
                 method: 'GET',
@@ -53,7 +53,7 @@ export default function Edit({ data }) {
     
                 if (data.code == 400) {
     
-                    netlifyIdentity.refresh().then(function(token) {
+                    netlifyIdentity.refresh().then(token => {
                         getData(mypath)
                     })
     
@@ -88,7 +88,7 @@ export default function Edit({ data }) {
                 opts.sha = curfile.sha
             }
     
-            const url = "/.netlify/git/github/contents/" + mypath
+            const url = "/.netlify/git/github/contents" + mypath
             const bearer = 'Bearer ' + token
             fetch(url, {
                     body: JSON.stringify(opts),
@@ -104,7 +104,7 @@ export default function Edit({ data }) {
                 }).then(data => {
                     if (data.code == 400) {
     
-                        netlifyIdentity.refresh().then(function(token) {
+                        netlifyIdentity.refresh().then(token => {
                             saveData(mypath)
                         })
     
