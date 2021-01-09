@@ -15,6 +15,8 @@ export default function Edit({ data }) {
 
         const user = netlifyIdentity.currentUser();
 
+        console.log(user)
+
         if(!user) {
             netlifyIdentity.open();
         }
@@ -31,9 +33,22 @@ export default function Edit({ data }) {
     const path = data.allRecipesJson.edges[0].node.fields.path;
 
     const save = () => {
+        const user = netlifyIdentity.currentUser();
+
+        if(!user ) { // || user.token.expires_at >= Date.now()
+            console.log("token expired");
+            netlifyIdentity.open();
+            return;
+        }
+
+        const token = user.token.access_token;
+
         const requestOptions = {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": 'Bearer ' + token
+            },
             body: JSON.stringify({
                 branch: "gh-pages",
                 message: "Edited recipe: " + title,

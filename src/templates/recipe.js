@@ -23,7 +23,6 @@ export default function Recipe({ data }) {
         </li>)
 
     const standby = img => {
-        console.log(img)
         img.currentTarget.src = 'https://webstockreview.net/images/icon-png-images-6.png';
     }
 
