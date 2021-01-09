@@ -45,7 +45,7 @@ export default function Edit({ data }) {
                 credentials: 'include',
                 headers: {
                     'Authorization': bearer,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=utf-8'
                 }
             }).then(resp => {
                 return resp.json()
@@ -97,7 +97,7 @@ export default function Edit({ data }) {
                     credentials: 'include',
                     headers: {
                         'Authorization': bearer,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json; charset=utf-8'
                     }
                 }).then(resp => {
                     return resp.json()
