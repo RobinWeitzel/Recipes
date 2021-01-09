@@ -37,7 +37,7 @@ export default function Edit({ data }) {
         let user = netlifyIdentity.currentUser()
         let token = user.token.access_token
     
-        const url = "/.netlify/git/github/contents" + mypath
+        const url = "/.netlify/git/github/contents" + mypath + "?ref=gh-pages"
         const bearer = 'Bearer ' + token
         return fetch(url, {
                 method: 'GET',
