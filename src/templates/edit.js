@@ -11,11 +11,12 @@ import netlifyIdentity from 'netlify-identity-widget';
 
 export default function Edit({ data }) {
     React.useEffect(() => {
-        netlifyIdentity.init();
-
-        const user = netlifyIdentity.currentUser();
-
-        console.log(user)
+        let user = netlifyIdentity.currentUser();
+        
+        if(!user) {
+            netlifyIdentity.init();
+            user = netlifyIdentity.currentUser();
+        }
 
         if(!user) {
             netlifyIdentity.open();
@@ -32,41 +33,104 @@ export default function Edit({ data }) {
     const image = data.allRecipesJson.edges[0].node.image || "";
     const path = data.allRecipesJson.edges[0].node.fields.path;
 
-    const save = () => {
-        const user = netlifyIdentity.currentUser();
-
-        if(!user ) { // || user.token.expires_at >= Date.now()
-            console.log("token expired");
-            netlifyIdentity.open();
-            return;
-        }
-
-        const token = user.token.access_token;
-
-        const requestOptions = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                "Authorization": 'Bearer ' + token
-            },
-            body: JSON.stringify({
-                branch: "gh-pages",
-                message: "Edited recipe: " + title,
-                content: Buffer.from(JSON.stringify({
-                    title,
-                    description,
-                    duration,
-                    difficulty,
-                    ingredients,
-                    instructions,
-                    image
-                })).toString('base64')
+    function getData(mypath = '') {
+        let user = netlifyIdentity.currentUser()
+        let token = user.token.access_token
+    
+        var url = "/.netlify/git/github/contents/" + mypath
+        var bearer = 'Bearer ' + token
+        return fetch(url, {
+                method: 'GET',
+                withCredentials: true,
+                credentials: 'include',
+                headers: {
+                    'Authorization': bearer,
+                    'Content-Type': 'application/json'
+                }
+            }).then(resp => {
+                return resp.json()
+            }).then(data => {
+    
+                if (data.code == 400) {
+    
+                    netlifyIdentity.refresh().then(function(token) {
+                        getData(mypath)
+                    })
+    
+                } else {
+                    // base64 decode content
+                    data.content = atob(data.content)
+                    return data
+                }
             })
-        };
+            .catch(error => {
+                return error
+            })
+    
+    }
+    
+    function saveData(mypath, data) {
+    
+        getData(mypath).then(function(curfile) {
+    
+            let user = netlifyIdentity.currentUser()
+            let token = user.token.access_token
+    
+            let opts = {
+                path: mypath,
+                message: "Edited recipe " + title,
+                content: btoa(data),
+                branch: "gh-pages",
+                committer: { name: "RobinWeitzel", email: "robin.weitzel.rw@gmail.com" },
+            }
+    
+            if (typeof curfile !== 'undefined') {
+                opts.sha = curfile.sha
+            }
+    
+            var url = "/.netlify/git/github/contents/" + mypath
+            var bearer = 'Bearer ' + token
+            fetch(url, {
+                    body: JSON.stringify(opts),
+                    method: 'PUT',
+                    withCredentials: true,
+                    credentials: 'include',
+                    headers: {
+                        'Authorization': bearer,
+                        'Content-Type': 'application/json'
+                    }
+                }).then(resp => {
+                    return resp.json()
+                }).then(data => {
+                    if (data.code == 400) {
+    
+                        netlifyIdentity.refresh().then(function(token) {
+                            saveData(mypath)
+                        })
+    
+                    } else {
+                        return data
+                    }
+                })
+                .catch(error => this.setState({
+                    message: 'Error: ' + error
+                }))
+    
+        })
+    
+    }
 
-        fetch('/.netlify/git/github/contents' + path, requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data));        
+    const save = () => {
+
+        saveData(path, JSON.stringify({
+            title,
+            description,
+            duration,
+            difficulty,
+            ingredients,
+            instructions,
+            image
+        }));      
     }
 
     const ingredientsList = ingredients.map((ingredient, i) => {
