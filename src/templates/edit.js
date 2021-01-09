@@ -37,8 +37,8 @@ export default function Edit({ data }) {
         let user = netlifyIdentity.currentUser()
         let token = user.token.access_token
     
-        var url = "/.netlify/git/github/contents/" + mypath
-        var bearer = 'Bearer ' + token
+        const url = "/.netlify/git/github/contents/" + mypath
+        const bearer = 'Bearer ' + token
         return fetch(url, {
                 method: 'GET',
                 withCredentials: true,
@@ -88,8 +88,8 @@ export default function Edit({ data }) {
                 opts.sha = curfile.sha
             }
     
-            var url = "/.netlify/git/github/contents/" + mypath
-            var bearer = 'Bearer ' + token
+            const url = "/.netlify/git/github/contents/" + mypath
+            const bearer = 'Bearer ' + token
             fetch(url, {
                     body: JSON.stringify(opts),
                     method: 'PUT',
@@ -112,9 +112,7 @@ export default function Edit({ data }) {
                         return data
                     }
                 })
-                .catch(error => this.setState({
-                    message: 'Error: ' + error
-                }))
+                .catch(error => console.error(error))
     
         })
     
