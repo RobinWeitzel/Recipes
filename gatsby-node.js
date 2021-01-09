@@ -20,7 +20,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `path`,
-      value: '/src' + slug.slice(0, -1) + ".json",
+      value: '/src/recipes' + slug.slice(0, -1) + ".json",
     })
   }
 }
