@@ -146,7 +146,7 @@ export default function Edit({ data }) {
     return (
         <Layout>
             <div id={styles.content}>
-                <img id={styles.img} src="https://webstockreview.net/images/icon-png-images-6.png" onError={standby} />
+                <img id={styles.img} src="https://webstockreview.net/images/icon-png-images-6.png"/>
 
                 <h3 className={styles.h3}>Title</h3>
                 <input className={styles.input} type="text" id={styles.title} value={title} onChange={applyinput(setTitle)} />

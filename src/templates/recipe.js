@@ -22,10 +22,6 @@ export default function Recipe({ data }) {
             <span className={styles.span}>{instruction}</span>
         </li>)
 
-    const standby = img => {
-        img.currentTarget.src = 'https://webstockreview.net/images/icon-png-images-6.png';
-    }
-
     const edit = () => {
         if(typeof window !== 'undefined' && window.document) {
             window.location.href = recipe.fields.edit;
