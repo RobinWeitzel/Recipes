@@ -24,10 +24,9 @@ module.exports = {
     },
     `gatsby-transformer-json`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-plugin-load-script',
       options: {
-        path: `./src/recipes/`,
-        typeName: "Recipe"
+        src: 'https://unpkg.com/github-api@3.3.0/dist/GitHub.bundle.min.js',
       },
     },
   ],

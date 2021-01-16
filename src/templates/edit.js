@@ -7,19 +7,27 @@ import {
     faPlus,
     faTrash
 } from '@fortawesome/free-solid-svg-icons'
-import netlifyIdentity from 'netlify-identity-widget';
 
 export default function Edit({ data }) {
-    React.useEffect(() => {
-        let user = netlifyIdentity.currentUser();
-        
-        if(!user) {
-            netlifyIdentity.init();
-            user = netlifyIdentity.currentUser();
-        }
+    const [user, setUser] = React.useState(null);
 
-        if(!user) {
-            netlifyIdentity.open();
+    React.useEffect(() => {
+        if(user === null) {
+            const name = localStorage.getItem("name");
+            const token = localStorage.getItem("token");
+            const repository = localStorage.getItem("repository");
+            const branch = localStorage.getItem("branch");
+
+            if(name && token && repository && branch) {
+                setUser({
+                    name,
+                    token,
+                    repository,
+                    branch
+                });
+            } else {
+                window.location.href = '/config?redir=' + editUrl
+            }
         }
     });
 
@@ -32,95 +40,20 @@ export default function Edit({ data }) {
 
     const image = data.allRecipesJson.edges[0].node.image || "";
     const path = data.allRecipesJson.edges[0].node.fields.path;
-
-    function getData(mypath = '') {
-        let user = netlifyIdentity.currentUser()
-        let token = user.token.access_token
-    
-        const url = "/.netlify/git/github/contents" + mypath + "?ref=gh-pages"
-        const bearer = 'Bearer ' + token
-        return fetch(url, {
-                method: 'GET',
-                withCredentials: true,
-                credentials: 'include',
-                headers: {
-                    'Authorization': bearer,
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-            }).then(resp => {
-                return resp.json()
-            }).then(data => {
-    
-                if (data.code == 400) {
-    
-                    netlifyIdentity.refresh().then(token => {
-                        getData(mypath)
-                    })
-    
-                } else {
-                    // base64 decode content
-                    data.content = atob(data.content)
-                    return data
-                }
-            })
-            .catch(error => {
-                return error
-            })
-    
-    }
-    
-    function saveData(mypath, data) {
-    
-        getData(mypath).then(function(curfile) {
-    
-            let user = netlifyIdentity.currentUser()
-            let token = user.token.access_token
-    
-            let opts = {
-                path: mypath,
-                message: "Edited recipe " + title,
-                content: btoa(data),
-                branch: "gh-pages",
-                committer: { name: "RobinWeitzel", email: "robin.weitzel.rw@gmail.com" },
-            }
-    
-            if (typeof curfile !== 'undefined') {
-                opts.sha = curfile.sha
-            }
-    
-            const url = "/.netlify/git/github/contents" + mypath
-            const bearer = 'Bearer ' + token
-            fetch(url, {
-                    body: JSON.stringify(opts),
-                    method: 'PUT',
-                    withCredentials: true,
-                    credentials: 'include',
-                    headers: {
-                        'Authorization': bearer,
-                        'Content-Type': 'application/json; charset=utf-8'
-                    }
-                }).then(resp => {
-                    return resp.json()
-                }).then(data => {
-                    if (data.code == 400) {
-    
-                        netlifyIdentity.refresh().then(token => {
-                            saveData(mypath)
-                        })
-    
-                    } else {
-                        return data
-                    }
-                })
-                .catch(error => console.error(error))
-    
-        })
-    
-    }
+    const editUrl = data.allRecipesJson.edges[0].node.fields.edit;
 
     const save = () => {
+        if(typeof window === 'undefined' || !window.GitHub) {
+            return;
+        }
 
-        saveData(path, JSON.stringify({
+        const github = new GitHub({
+            token: user.token
+        });
+
+        const repository = github.getRepo(user.name, user.repository);
+
+        const file = JSON.stringify({
             title,
             description,
             duration,
@@ -128,7 +61,24 @@ export default function Edit({ data }) {
             ingredients,
             instructions,
             image
-        }));      
+        });
+
+        // Creates a new file (or updates it if the file already exists)
+        // with the content provided
+        repository.writeFile(
+            user.branch, // e.g. 'master'
+            path, // e.g. 'blog/index.md'
+            file, // e.g. 'Hello world, this is my new content'
+            'Edited recipe: ' + title, // e.g. 'Created new index'
+            function (err, res, val) {
+                if (err) {
+                    localStorage.setItem("token", "");
+                    window.location.href = '/config?redir=' + editUrl;
+                } else {
+                    window.location.href = '/';
+                }
+            }
+        );   
     }
 
     const ingredientsList = ingredients.map((ingredient, i) => {
@@ -238,6 +188,7 @@ export const query = graphql`
                     ingredients
                     instructions
                     fields {
+                        edit
                         path
                     }
                 }
