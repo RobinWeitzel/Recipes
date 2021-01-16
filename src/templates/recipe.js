@@ -35,7 +35,7 @@ export default function Recipe({ data }) {
     return (
         <Layout>
             <div id={styles.content}>
-                <img id={styles.img} src={recipe.image} onError={standby} alt="img" />
+                <img id={styles.img} src="https://webstockreview.net/images/icon-png-images-6.png" alt="img" />
                 <h2 className={styles.h2}>{recipe.title}</h2>
                 <div className={styles.listItemTags}>
                     <div className={styles.duration}>
