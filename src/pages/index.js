@@ -23,7 +23,7 @@ export default function Index({ data }) {
 
     return (
       <Link key={recipe.fields.slug} className={styles.listItem} to={recipe.fields.slug}>
-        <img src={recipe.image} onError={standby} />
+        <img src="https://webstockreview.net/images/icon-png-images-6.png" onError={standby} />
         <div className={styles.listItemText}>
           <div className={styles.listItemTitle}>
             { recipe.title }
