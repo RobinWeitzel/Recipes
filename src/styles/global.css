@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    overflow: hidden;
+    height: 100%;
+}
+
+#___gatsby {
+    height: 100%;
+}
+
+#gatsby-focus-wrapper {
+    height: 100%;
+}

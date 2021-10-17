@@ -1,0 +1,22 @@
+{
+    "title": "Spargel",
+    "description": "Angebratener Spargel",
+    "duration": "45 min",
+    "difficulty": "Easy",
+    "ingredients": [
+        "6-7 Stangen Spargel",
+        "Kartoffeln",
+        "Kochschinken",
+        "Hollandaise Sauce",
+        "125g Butter"
+    ],
+    "instructions": [
+        "Spargel schälen",
+        "Ende abscheiden, Rest in 3-4 Stücke schneiden",
+        "In kalte Pfanne mit Oliven Öl legen",
+        "Au mittel hoher Hitze anbraten, mit Salz, Pfeffer und Gemüsebrühe würzen",
+        "5-6 Minuten anbraten, bis leicht braun",
+        "Hitze herunter regeln, 15-20 Minuten unter gelegentlichem Rühren mit Deckel weich kochen"
+    ],
+    "image": ""
+}
