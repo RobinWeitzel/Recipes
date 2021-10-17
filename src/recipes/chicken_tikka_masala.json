@@ -1,0 +1,30 @@
+{
+    "title": "Chicken Tikka Masala",
+    "description": "",
+    "duration": "45 min",
+    "difficulty": "Easy",
+    "ingredients": [
+        "500g Hänchenbrust",
+        "150g Naturjoghurt",
+        "350g Sahne",
+        "500g passierte Tomaten",
+        "1 Zwiebel",
+        "4 Knoblauchzehen",
+        "0,5 Zitrone",
+        "Ingwer",
+        "Garam Masala",
+        "Ingwer"
+    ],
+    "instructions": [
+        "Hänchenbrust würfeln",
+        "Joghurt, Zitronensaft, 2 Knoblauchzehen, Ingwer, Garam Masala und Salz mit Hänchen vermischen und über Nacht ziehen lassen",
+        "Fleisch anbraten, aus der Pfanne nehmen und beiseite stellen",
+        "Öl und Butter in die Pfanne geben",
+        "Zwiebel, 2 Knoblauchzehen und Ingwer dazu geben",
+        "Mit Kurkuma, Koriander und Kreuzkümmel würzen",
+        "Passierte Tomaten dazu geben und 20 Minuten einkochen lassen",
+        "Sahne dazu geben, unter rühren und mit Chili abschmecken",
+        "Fleisch dazu geben und alles 10-15 Minuten köcheln lassen"
+    ],
+    "image": ""
+}

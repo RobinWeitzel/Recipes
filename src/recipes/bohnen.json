@@ -1,0 +1,25 @@
+{
+    "title": "Bohnen",
+    "description": "Rezept von meiner Mutter",
+    "duration": "30 min",
+    "difficulty": "Easy",
+    "ingredients": [
+        "Bohnen",
+        "Speckwürfel",
+        "1 kleine Zwiebel",
+        "1 Tomate"
+    ],
+    "instructions": [
+        "Bohnen waschen, Enden abschneiden",
+        "Zweibel und Tomate würfeln",
+        "Öl in Stahlpfanne geben, Zwiebel und Speckwürfel darin anbraten",
+        "Zum Rand schieben und Bohnen in die Pfanne geben",
+        "Salz und gekörtne Brühe dazu geben",
+        "Tomate oben auf die Bohnen geben",
+        "Auf mittlerer Hitze anbraten",
+        "Wenn Bohnen Farbe annehmen Herd auf kleien Stufe stellen, gelegentlich umrühren",
+        "20-25 Minuten köcheln lassen bis Bohnen weich und braun sind",
+        "Bei zu viel Flüssigkeit Herd am Ende auf hohe Stufe stellen"
+    ],
+    "image": ""
+}
